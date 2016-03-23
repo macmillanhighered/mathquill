@@ -214,10 +214,6 @@ LatexCmds.closecurlybrace = LatexCmds.rbrace = bind(VanillaSymbol, '\\rbrace ', 
 
 //various symbols
 
-LatexCmds['∫'] =
-LatexCmds['int'] =
-LatexCmds.integral = bind(Symbol,'\\int ','<big>&int;</big>');
-
 LatexCmds.caret = bind(VanillaSymbol,'\\text{^}','^');
 LatexCmds.underscore = bind(VanillaSymbol,'\\_','_');
 
