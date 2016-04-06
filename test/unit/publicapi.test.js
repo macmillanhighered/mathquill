@@ -657,7 +657,7 @@ suite('Public API', function() {
       $(mq.el()).remove();
     });
     test('integral still has empty limits', function() {
-      var mq = MQ.MathField($('<span>').appendTo('#mock')[0], {
+      var mq = MathQuill.MathField($('<span>').appendTo('#mock')[0], {
         sumStartsWithNEquals: true
       });
       assert.equal(mq.latex(), '');

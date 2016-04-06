@@ -100,7 +100,7 @@ td {
     // paste some stuff that needs resizing
     textarea.trigger('paste');
     textarea.val('\\pi\\sqrt{\\sqrt{\\frac12}}');
-    setTimeout(function() { if (count !== 1) throw 'reflow not called'; });
+    setTimeout(function() { if (count === oldcount) throw 'reflow not called'; });
   });
 </script>
 
@@ -224,7 +224,7 @@ $(function() {
         sixes += '<span style="font-size: ' + i + 'px" class="mathquill-math-field">6<\/span>';
     }
     $('#sixes').html(sixes);
-    $('#sixes .mathquill-math-field').each(function() { MQ.MathField(this); });
+    $('#sixes .mathquill-math-field').each(function() { MathQuill.MathField(this); });
 });
 </script>
 </table>
