@@ -71,7 +71,29 @@
   }
 
   big {
-    font-size: 125%;
+    font-size: 200%;
+  }
+
+  .mq-int {
+    > big {
+      display: inline-block;
+      .transform(scaleX(.7));
+      vertical-align: -.16em;
+    }
+
+    > .mq-supsub {
+      font-size: 80%;
+      vertical-align: -1.1em;
+      padding-right: .2em;
+
+      > .mq-sup > .mq-sup-inner {
+        vertical-align: 1.3em;
+      }
+
+      > .mq-sub {
+        margin-left: -.35em;
+      }
+    }
   }
 
   .mq-roman {
@@ -113,12 +135,9 @@
   //   its contents, rather than always being as wide as the subscript.
   //   See also .fraction
   .mq-supsub {
+    text-align: left;
     font-size: 90%;
     vertical-align: -.5em;
-    &.mq-limit {
-      font-size: 80%;
-      vertical-align: -.4em;
-    }
 
     &.mq-sup-only {
       vertical-align: .5em;
@@ -136,9 +155,6 @@
     .mq-sub {
       display: block;
       float: left;
-    }
-    &.mq-limit .mq-sub {
-      margin-left: -.25em;
     }
 
     .mq-binary-operator {
@@ -275,6 +291,8 @@
   }
 
   .mq-large-operator {
+    vertical-align: -.2em;
+    padding: .2em;
     text-align: center;
 
     .mq-from, big, .mq-to  {

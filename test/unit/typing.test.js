@@ -804,8 +804,11 @@ suite('typing with auto-replaces', function() {
   });
 
   suite('autoCommands', function() {
-    MathQuill.config({
-      autoCommands: 'pi tau phi theta Gamma sum prod sqrt nthroot'
+    setup(function() {
+      MQ.config({
+        autoOperatorNames: 'sin pp',
+        autoCommands: 'pi tau phi theta Gamma sum prod sqrt nthroot'
+      });
     });
 
     test('individual commands', function(){
@@ -869,6 +872,13 @@ suite('typing with auto-replaces', function() {
       assertLatex('s\\pi pin\\pi');
       mq.keystroke('Del').keystroke('Backspace');
       assertLatex('\\sin\\pi');
+    });
+
+    test('has lower "precedence" than operator names', function() {
+      mq.typedText('ppi');
+      assertLatex('\\operatorname{pp}i');
+      mq.keystroke('Left Left').typedText('i');
+      assertLatex('\\pi pi');
     });
 
     test('command contains non-letters', function() {
