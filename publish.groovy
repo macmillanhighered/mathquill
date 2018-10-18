@@ -2,7 +2,7 @@ def buildNpmrc = {
   withCredentials([
     usernamePassword(credentialsId: 'artifactory-jenkins-user', usernameVariable: 'NPM_USER', passwordVariable: 'NPM_PASSWORD')
   ]) {
-    sh './provision/build_npmrc.sh'
+    sh './build_npmrc.sh'
   }
 }
 
@@ -17,7 +17,7 @@ pipeline {
           withCredentials([
             usernamePassword(credentialsId: 'artifactory-jenkins-user', usernameVariable: 'NPM_USER', passwordVariable: 'NPM_PASSWORD')
           ]) {
-            sh './provision/build_npmrc.sh'
+            sh './build_npmrc.sh'
           }
           sh 'npm publish'
         }
