@@ -1,11 +1,11 @@
 {
   "name": "@macmillan-learning/mathquill",
   "description": "Easily type math in your webapp",
-  "version": "0.10.1",
+  "version": "0.10.1-a",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mathquill/mathquill.git"
+    "url": "https://github.com/macmillanhighered/ml_mathquill.git"
   },
   "files": [
     "build/mathquill.{css,js,min.js}",
