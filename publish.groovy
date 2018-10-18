@@ -19,6 +19,7 @@ pipeline {
           ]) {
             sh './build_npmrc.sh'
           }
+          sh 'make'
           sh 'npm publish'
         }
       }
