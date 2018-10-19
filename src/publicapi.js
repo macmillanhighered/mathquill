@@ -252,6 +252,22 @@ function getInterface(v) {
     _.getAriaPostLabel = function () {
       return this.__controller.ariaPostLabel || '';
     };
+    _.ariaAlert = function(ariaAlertText, timeout) {
+      var controller = this.__controller;
+      if(ariaAlertText && typeof ariaAlertText === 'string' && ariaAlertText!='') {
+        if (typeof timeout === 'number') {
+          if (this.ariaAlertTimeout) clearTimeout(this.ariaAlertTimeout);
+          this.ariaAlertTimeout = setTimeout(function() {
+            if (!!$(document.activeElement).closest($(controller.container)).length) {
+              aria.alert(ariaAlertText.trim());
+            }
+          }.bind(this), timeout);
+        }
+      } else {
+        if (this.ariaAlertTimeout) clearTimeout(this.ariaAlertTimeout);
+      }
+      return this;
+    };
     _.clickAt = function(clientX, clientY, target) {
       target = target || document.elementFromPoint(clientX, clientY);
       var ctrlr = this.__controller, root = ctrlr.root;
