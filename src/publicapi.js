@@ -252,17 +252,19 @@ function getInterface(v) {
     _.getAriaPostLabel = function () {
       return this.__controller.ariaPostLabel || '';
     };
-    _.setAriaAlert = function(ariaAlert, timeout) {
+    _.ariaAlert = function(ariaAlertText, timeout) {
       var controller = this.__controller;
-      if(ariaAlert && typeof ariaAlert === 'string' && ariaAlert!='') {
+      if(ariaAlertText && typeof ariaAlertText === 'string' && ariaAlertText!='') {
         if (typeof timeout === 'number') {
           if (this.ariaAlertTimeout) clearTimeout(this.ariaAlertTimeout);
           this.ariaAlertTimeout = setTimeout(function() {
             if (!!$(document.activeElement).closest($(controller.container)).length) {
-              aria.alert( ariaAlert.trim());
+              aria.alert(ariaAlertText.trim());
             }
           }.bind(this), timeout);
         }
+      } else {
+        if (this.ariaAlertTimeout) clearTimeout(this.ariaAlertTimeout);
       }
       return this;
     };
