@@ -24,6 +24,10 @@ Node.open(function(_) {
       ctrlr.backspace();
       break;
 
+    case 'Silent-Backspace':
+      ctrlr.silentBackspace();
+      break;
+
     // Tab or Esc -> go one block right if it exists, else escape right.
     case 'Esc':
     case 'Tab':
@@ -275,11 +279,11 @@ Controller.open(function(_) {
   this.onNotify(function(e) { if (e !== 'upDown') this.upDownCache = {}; });
 
   this.onNotify(function(e) { if (e === 'edit') this.show().deleteSelection(); });
-  _.deleteDir = function(dir) {
+  _.deleteDir = function(dir, shouldSpeak) {
     prayDirection(dir);
     var cursor = this.cursor;
     var cursorEl = cursor[dir], cursorElParent = cursor.parent.parent;
-    if(cursorEl && cursorEl instanceof Node) {
+    if(cursorEl && cursorEl instanceof Node && shouldSpeak) {
       if(cursorEl.sides) {
         aria.queue(cursorEl.parent.chToCmd(cursorEl.sides[-dir].ch).mathspeak({createdLeftOf: cursor}));
       // generally, speak the current element if it has no blocks,
@@ -288,8 +292,8 @@ Controller.open(function(_) {
       } else if (!cursorEl.blocks && cursorEl.parent.ctrlSeq !== '\\text') {
         aria.queue(cursorEl);
       }
-    } else if(cursorElParent && cursorElParent instanceof Node) {
-      if(cursorElParent.sides) {
+    } else if(cursorElParent && cursorElParent instanceof Node && shouldSpeak) {
+      if(cursorElParent.sides && shouldSpeak) {
         aria.queue(cursorElParent.parent.chToCmd(cursorElParent.sides[dir].ch).mathspeak({createdLeftOf: cursor}));
       } else if (cursorElParent.blocks && cursorElParent.mathspeakTemplate) {
         if (cursorElParent.upInto && cursorElParent.downInto) { // likely a fraction, and we just backspaced over the slash
@@ -340,7 +344,8 @@ Controller.open(function(_) {
 
     return this;
   };
-  _.backspace = function() { return this.deleteDir(L); };
+  _.backspace = function() { return this.deleteDir(L, true); };
+  _.silentBackspace = function() { return this.deleteDir(L, false); };
   _.deleteForward = function() { return this.deleteDir(R); };
 
   this.onNotify(function(e) { if (e !== 'select') this.endSelection(); });
