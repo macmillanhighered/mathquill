@@ -81,8 +81,8 @@ var TextBlock = P(Node, function(_, super_) {
   // and selection of the MathQuill tree, these all take in a direction and
   // the cursor
   _.moveTowards = function(dir, cursor) {
-    cursor.insAtDirEnd(-dir, this);
-    aria.queueDirEndOf(-dir).queue(cursor.parent, true);
+    cursor.insDirOf(dir, this);
+    aria.queueDirOf(dir).queue(this);
   };
   _.moveOutOf = function(dir, cursor) {
     cursor.insDirOf(dir, this);
