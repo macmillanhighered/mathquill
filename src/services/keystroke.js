@@ -279,11 +279,11 @@ Controller.open(function(_) {
   this.onNotify(function(e) { if (e !== 'upDown') this.upDownCache = {}; });
 
   this.onNotify(function(e) { if (e === 'edit') this.show().deleteSelection(); });
-  _.deleteDir = function(dir, shouldSpeak) {
+  _.deleteDir = function(dir, dontSpeak) {
     prayDirection(dir);
     var cursor = this.cursor;
     var cursorEl = cursor[dir], cursorElParent = cursor.parent.parent;
-    if(cursorEl && cursorEl instanceof Node && shouldSpeak) {
+    if(cursorEl && cursorEl instanceof Node && !dontSpeak) {
       if(cursorEl.sides) {
         aria.queue(cursorEl.parent.chToCmd(cursorEl.sides[-dir].ch).mathspeak({createdLeftOf: cursor}));
       // generally, speak the current element if it has no blocks,
@@ -292,7 +292,7 @@ Controller.open(function(_) {
       } else if (!cursorEl.blocks && cursorEl.parent.ctrlSeq !== '\\text') {
         aria.queue(cursorEl);
       }
-    } else if(cursorElParent && cursorElParent instanceof Node && shouldSpeak) {
+    } else if(cursorElParent && cursorElParent instanceof Node && !dontSpeak) {
       if(cursorElParent.sides && shouldSpeak) {
         aria.queue(cursorElParent.parent.chToCmd(cursorElParent.sides[dir].ch).mathspeak({createdLeftOf: cursor}));
       } else if (cursorElParent.blocks && cursorElParent.mathspeakTemplate) {
@@ -344,8 +344,8 @@ Controller.open(function(_) {
 
     return this;
   };
-  _.backspace = function() { return this.deleteDir(L, true); };
-  _.silentBackspace = function() { return this.deleteDir(L, false); };
+  _.backspace = function() { return this.deleteDir(L); };
+  _.silentBackspace = function() { return this.deleteDir(L, true); };
   _.deleteForward = function() { return this.deleteDir(R); };
 
   this.onNotify(function(e) { if (e !== 'select') this.endSelection(); });
