@@ -293,7 +293,7 @@ Controller.open(function(_) {
         aria.queue(cursorEl);
       }
     } else if(cursorElParent && cursorElParent instanceof Node && !dontSpeak) {
-      if(cursorElParent.sides && shouldSpeak) {
+      if(cursorElParent.sides) {
         aria.queue(cursorElParent.parent.chToCmd(cursorElParent.sides[dir].ch).mathspeak({createdLeftOf: cursor}));
       } else if (cursorElParent.blocks && cursorElParent.mathspeakTemplate) {
         if (cursorElParent.upInto && cursorElParent.downInto) { // likely a fraction, and we just backspaced over the slash
