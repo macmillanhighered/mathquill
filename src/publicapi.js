@@ -268,6 +268,18 @@ function getInterface(v) {
       }
       return this;
     };
+    _.readAriaEquation = function(timeout) {
+      var controller = this.__controller;
+      if (typeof timeout === 'number') {
+        if (this.ariaAlertTimeout) clearTimeout(this.ariaAlertTimeout);
+        this.ariaAlertTimeout = setTimeout(function() {
+          if (!!$(document.activeElement).closest($(controller.container)).length) {
+            aria.alert(this.mathspeak().trim() + ' ' + controller.ariaPostLabel .trim());
+          }
+        }.bind(this), timeout);
+      }
+      return this;
+    };
     _.clickAt = function(clientX, clientY, target) {
       target = target || document.elementFromPoint(clientX, clientY);
       var ctrlr = this.__controller, root = ctrlr.root;
