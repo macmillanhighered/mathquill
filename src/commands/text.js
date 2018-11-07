@@ -90,9 +90,17 @@ var TextBlock = P(Node, function(_, super_) {
   };
   _.unselectInto = _.moveTowards;
 
-  // TODO: make these methods part of a shared mixin or something.
+  // TODO: make this method part of a shared mixin or something.
   _.selectTowards = MathCommand.prototype.selectTowards;
-  _.deleteTowards = MathCommand.prototype.deleteTowards;
+
+  // Handle deleting textbf i,j,k in one keypress
+  _.deleteTowards = function(dir, cursor) {
+    if (['"i"', '"j"', '"k"'].includes(this.text())) {
+      this.remove();
+      this.jQ.remove();
+      cursor[dir] = this[dir];
+    }
+  };
 
   _.selectOutOf = function(dir, cursor) {
     cursor.insDirOf(dir, this);
