@@ -24,13 +24,13 @@ Node.open(function(_) {
       ctrlr.backspace();
       break;
 
-    case 'Silent-Backspace':
+    case 'Secret-Backspace':
       ctrlr.silentBackspace();
       break;
 
-    // Tab or Esc -> go one block right if it exists, else escape right.
+    // Esc -> go one block right if it exists, else escape right.
     case 'Esc':
-    case 'Tab':
+    case 'Secret-Tab':
       ctrlr.escapeDir(R, key, e);
       return;
 
