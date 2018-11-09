@@ -280,6 +280,12 @@ function getInterface(v) {
       }
       return this;
     };
+    _.showCursor = function() {
+      this.__controller.cursor.show()
+    };
+    _.hideCursor = function() {
+      this.__controller.cursor.hide()
+    };
     _.clickAt = function(clientX, clientY, target) {
       target = target || document.elementFromPoint(clientX, clientY);
       var ctrlr = this.__controller, root = ctrlr.root;
